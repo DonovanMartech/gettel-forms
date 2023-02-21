@@ -13,6 +13,7 @@ let reports
 let grid
 let reportUrl
 let reportTitle
+let formUrl
 
 jotform
   .getReports()
@@ -23,7 +24,8 @@ jotform
     })
     grid = grids.map((grid) => {
       reportUrl = grid.url
-	  reportTitle = grid.title
+      reportTitle = grid.title
+      formUrl = grid.form_url
       console.log(grid)
       return JSON.stringify(grid, null, 4)
     })
@@ -41,6 +43,7 @@ router.get("/", function (req, res, next) {
     grid: grid,
     reportUrl: reportUrl,
     reportTitle: reportTitle,
+    formUrl: formUrl,
   })
 })
 
