@@ -10,7 +10,6 @@ jotform.options({
 })
 
 let reports
-let grids
 let grid
 let reportUrl
 let reportTitle
@@ -19,7 +18,7 @@ jotform
   .getReports()
   .then(function (r) {
     reports = JSON.stringify(r, null, 4)
-    grids = r.filter((report) => {
+    let grids = r.filter((report) => {
       return report.list_type === "grid"
     })
     grid = grids.map((grid) => {
