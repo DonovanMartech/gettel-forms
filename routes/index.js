@@ -15,24 +15,36 @@ let reportUrl
 let reportTitle
 let formUrl
 
+// jotform
+//   .getReports()
+//   .then(function (r) {
+//     // reports = JSON.stringify(r, null, 4)
+//     let grids = r.filter((report) => {
+//       return report.list_type === "grid"
+//     })
+//     grid = grids.map((grid) => {
+//       reportUrl = grid.url
+//       reportTitle = grid.title
+//       formUrl = grid.form_url
+//       console.log(grid)
+//       return JSON.stringify(grid, null, 4)
+//     })
+//   })
+//   .fail(function (e) {
+//     /* handle error */
+//     console.log(e)
+//   })
+
 jotform
-  .getReports()
+  .getFormSubmissions(process.env.FORMID, {
+    filter: {
+      "created_at:gt": "2023-01-25 00:00:00",
+      "created_at:lt": "2023-01-26 00:00:00",
+    },
+  })
   .then(function (r) {
     reports = JSON.stringify(r, null, 4)
-    let grids = r.filter((report) => {
-      return report.list_type === "grid"
-    })
-    grid = grids.map((grid) => {
-      reportUrl = grid.url
-      reportTitle = grid.title
-      formUrl = grid.form_url
-      console.log(grid)
-      return JSON.stringify(grid, null, 4)
-    })
-  })
-  .fail(function (e) {
-    /* handle error */
-    console.log(e)
+    console.log(reports)
   })
 
 /* GET home page. */
