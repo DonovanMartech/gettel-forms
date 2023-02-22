@@ -1,0 +1,36 @@
+extends layout
+
+block content
+  .container-fluid
+    .row
+      .col-12 
+        h1= title
+
+      .col-12
+        form
+          label(for="year").form-label Year
+            select(name="year", id="year").form-select
+              option(value="2023") 2023
+
+          label(for="month").form-label.mx-2 Month
+            select(name="month", id="month").form-select
+              - for (let i = 1; i <= 12; i++)
+                if i < 10
+                  - let monthWithZero = "0" + i
+                  option(value=monthWithZero) 0#{i}
+                else
+                  option(value=i)= i
+            
+        //- p Welcome to #{reports}
+
+      .col-12
+        pre
+          code= reports
+
+      .col-12
+        h1 Report Title
+        h2= reportTitle
+        p
+          a(href=reportUrl) Go to Reports
+        p
+          a(href=formUrl) Go to Form
