@@ -32,7 +32,7 @@ jotform
 		console.log('forms: ', forms);
 		return formObj;
 	})
-	.then((formObj) => {
+	.then(() => {
 		jotform.getFormSubmissions(forms[1].id, {
 			filter: {
 				'created_at:gt': '2023-01-26 00:00:00',
