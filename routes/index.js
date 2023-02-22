@@ -44,7 +44,7 @@ jotform
   })
   .then(function (r) {
     reports = JSON.stringify(r, null, 4)
-    console.log(reports)
+    // console.log(reports)
   })
 
 /* GET home page. */
