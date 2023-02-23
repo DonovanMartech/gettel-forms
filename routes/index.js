@@ -64,20 +64,18 @@ router.get('/', function (req, res, next) {
 router.get('/all', (req, res, next) => {
 	let year = req.query.year;
 	let month = req.query.month;
-	const lastDayOfPreviousMonth =
+	res.locals.lastDayOfPreviousMonth =
 		new Date(year, month - 1, -1).toISOString().split('T')[0] + ' 00:00:00';
-	// const lastOfMonth = new Date(year, month, 0);
-	const firstDayOfNextMonth =
+	res.locals.firstDayOfNextMonth =
 		new Date(year, month, 1).toISOString().split('T')[0] + ' 00:00:00';
-  res.locals.lastDayOfPreviousMonth = lastDayOfPreviousMonth;
-  res.locals.firstDayOfNextMonth = firstDayOfNextMonth;
 
   // console.log(jSubmissions(lastDayOfPreviousMonth, firstDayOfNextMonth));
-
+  jSubmissions(res.locals.lastDayOfPreviousMonth, res.locals.firstDayOfNextMonth)
 	
   next();
 },(req, res) => {
-  console.log('line 81: ' + res.locals.lastDayOfPreviousMonth);
+  // console.log('line 81: ' + res.locals.lastDayOfPreviousMonth);
+  
   res.render('all', {
 		forms: JSON.stringify(forms),
 		f: res.locals.lastDayOfPreviousMonth,
@@ -86,19 +84,19 @@ router.get('/all', (req, res, next) => {
 }
 );
 
-// function jSubmissions(lastMonth, nextMonth) {
-//   let subs = jotform
-// 			.getFormSubmissions(process.env.FORMID, {
-// 				filter: {
-// 					'created_at:gt': lastMonth,
-// 					'created_at:lt': nextMonth,
-// 				},
-// 			})
-// 			.then(function (r) {
-  // 				 return subs = JSON.stringify(r);
-  //         console.log('line 93: ' + subs);
-// 			});
-//   return subs;
-// }
+function jSubmissions(lastMonth, nextMonth) {
+  let subs;
+  jotform
+			.getFormSubmissions(process.env.FORMID, {
+				filter: {
+					'created_at:gt': lastMonth,
+					'created_at:lt': nextMonth,
+				},
+			})
+			.then(function (r) {
+  				subs = JSON.stringify(r);
+          console.log('line 93: ' + subs);
+			});
+}
 
 module.exports = router;
