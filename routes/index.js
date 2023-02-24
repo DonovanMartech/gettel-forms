@@ -13,7 +13,6 @@ let forms = [];
 let ogForms = [];
 
 
-
 /* GET home page. */
 router.get('/', async function (req, res, next) {
 	ogForms = await getAllForms();
@@ -78,3 +77,4 @@ async function jotGetSubs(res) {
 }
 
 module.exports = router;
+
