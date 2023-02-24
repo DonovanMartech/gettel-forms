@@ -10,7 +10,7 @@ block content
       
       .col-12
         form(action='/all', method="GET")
-        
+
           label(for="year").form-label Year
             select(name="year", id="year").form-select
               option(value="2023") 2023
@@ -37,21 +37,3 @@ block content
         - string = JSON.stringify(ogForms, null, 2)
         pre
           code= string
-
-      .col-6
-        h1 Forms
-        pre
-          code= forms
-
-      .col-12
-        h1 Submissions
-        pre
-          code= reports
-   
-      .col-12
-        h1 Report Title
-        h2= reportTitle
-        p
-          a(href=reportUrl) Go to Reports
-        p
-          a(href=formUrl) Go to Form
