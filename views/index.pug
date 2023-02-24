@@ -1,4 +1,5 @@
 extends layout
+include mixins/formCard
 
 block content
   .container-fluid
@@ -6,8 +7,10 @@ block content
       .col-12 
         h1= title
 
+      
       .col-12
-        form
+        form(action='/all', method="GET")
+        
           label(for="year").form-label Year
             select(name="year", id="year").form-select
               option(value="2023") 2023
@@ -20,13 +23,31 @@ block content
                   option(value=monthWithZero) 0#{i}
                 else
                   option(value=i)= i
+          
+          button(type="submit").btn.btn-primary Submit
             
         //- p Welcome to #{reports}
 
+      .col-6
+        h1 Active Forms
+
+        each f in ogForms
+          +formCard(f)
+
+        - string = JSON.stringify(ogForms, null, 2)
+        pre
+          code= string
+
+      .col-6
+        h1 Forms
+        pre
+          code= forms
+
       .col-12
+        h1 Submissions
         pre
           code= reports
-
+   
       .col-12
         h1 Report Title
         h2= reportTitle
