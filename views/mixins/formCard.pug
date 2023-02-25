@@ -1,5 +1,7 @@
 mixin formCard(form)
-  .card
-    .card-body
-      p= form.id
-      p= form.title
+  .col-12.col-md-6.col-lg-4
+    .card.shadow-sm.bg-body.rounded-3
+      .card-body
+        h5.card-title= form.title
+        a(href=form.url).btn.btn-outline-primary View Form
+  

@@ -2,20 +2,23 @@ extends layout
 include mixins/formCard
 
 block content
-  .container-fluid
-    .row
+  .container
+    .row.g-3
+      .col-12.text-center.mb-5
+        h1 Gettel Reports
       .col-12 
-        h1= title
+        h2 All submissions for:
 
       
-      .col-12
-        form(action='/all', method="GET")
+      .col-12        
 
-          label(for="year").form-label Year
+        form(action='/all', method="GET").row.g-3
+          div.col-12.col-md-6.col-lg-4
+            label(for="year").form-label Year
             select(name="year", id="year").form-select
               option(value="2023") 2023
-
-          label(for="month").form-label.mx-2 Month
+          div.col-12.col-md-6.col-lg-4
+            label(for="month").form-label.mx-2 Month
             select(name="month", id="month").form-select
               - for (let i = 1; i <= 12; i++)
                 if i < 10
@@ -23,17 +26,17 @@ block content
                   option(value=monthWithZero) 0#{i}
                 else
                   option(value=i)= i
-          
-          button(type="submit").btn.btn-primary Submit
+          div.col-12
+            button(type="submit").btn.btn-primary Submit
             
-        //- p Welcome to #{reports}
+    .row.mt-5.g-3
+      .col-12
+        h2 Active Forms
 
-      .col-6
-        h1 Active Forms
+      each f in ogForms
+        +formCard(f)
 
-        each f in ogForms
-          +formCard(f)
-
-        - string = JSON.stringify(ogForms, null, 2)
-        pre
-          code= string
+    //- .row
+    //-     - string = JSON.stringify(ogForms, null, 2)
+    //-     pre
+    //-       code= string
