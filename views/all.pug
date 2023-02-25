@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  .container-fluid
+    .row
+      .col-12 
+        p Last Day Of Previous Month: #{f}
+        p First Day Of Next Month: #{l}
+
+        
+
+        - s = JSON.stringify(subs, null, 2)
+        pre
+          code= s
