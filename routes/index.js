@@ -16,7 +16,7 @@ let ogForms = [];
 /* GET home page. */
 router.get('/', async function (req, res, next) {
 	ogForms = await getAllForms();
-	console.log(ogForms);
+	// console.log(ogForms);
 	let formInfo = await formInfoFormat(ogForms);
 	res.render('index', {
 		title: 'Express',
@@ -29,15 +29,14 @@ router.get('/', async function (req, res, next) {
 router.get('/all', async (req, res, next) => {
 	let year = req.query.year;
 	let month = req.query.month;
-	let formInfo = req.query.formInfo;
+	let formInfo = JSON.parse(req.query.formInfo);
 	let lastDayOfPreviousMonth =
 		new Date(year, month - 1, -1).toISOString().split('T')[0] + ' 00:00:00';
 	let firstDayOfNextMonth =
 		new Date(year, month, 1).toISOString().split('T')[0] + ' 00:00:00';
-	let submissions = await jotGetSubs(res);
+	let submissions = await jotGetSubs(lastDayOfPreviousMonth, firstDayOfNextMonth);
 	// console.log('FORMINFO: ' + formInfo);
 	res.render('all', {
-		forms: JSON.stringify(forms),
 		lastDayOfPreviousMonth: lastDayOfPreviousMonth,
 		firstDayOfNextMonth: firstDayOfNextMonth,
 		subs: submissions,
@@ -73,11 +72,11 @@ async function getAllForms() {
 }
 
 //Grabbing all submissions from selected month and year
-async function jotGetSubs(res) {
+async function jotGetSubs(prevMonth, nextMonth) {
 	let filter = {
 		filter: {
-			'created_at:gt': res.locals.lastDayOfPreviousMonth,
-			'created_at:lt': res.locals.firstDayOfNextMonth,
+			'created_at:gt': prevMonth,
+			'created_at:lt': nextMonth,
 		},
 	};
 	let submission = await jotform
