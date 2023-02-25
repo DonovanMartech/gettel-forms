@@ -1,14 +1,20 @@
 extends layout
 
 block content
-  .container-fluid
-    .row
-      .col-12 
-        p Last Day Of Previous Month: #{f}
-        p First Day Of Next Month: #{l}
+  .row.g-3
+    .col-12 
+      p Last Day Of Previous Month: #{lastDayOfPreviousMonth}
+      p First Day Of Next Month: #{firstDayOfNextMonth}
 
-        
 
-        - s = JSON.stringify(subs, null, 2)
-        pre
-          code= s
+      p form info
+      p= formInfo
+      - fi = JSON.stringify(formInfo, null, 2)
+      pre
+        code= fi
+
+      - s = JSON.stringify(subs, null, 2)
+      pre
+        code= s
+
+

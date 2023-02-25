@@ -16,10 +16,12 @@ let ogForms = [];
 /* GET home page. */
 router.get('/', async function (req, res, next) {
 	ogForms = await getAllForms();
-	console.log(await getAllForms());
+	console.log(ogForms);
+	let formInfo = await formInfoFormat(ogForms);
 	res.render('index', {
 		title: 'Express',
 		ogForms: ogForms,
+		formInfo: formInfo,
 	});
 });
 
@@ -27,19 +29,32 @@ router.get('/', async function (req, res, next) {
 router.get('/all', async (req, res, next) => {
 	let year = req.query.year;
 	let month = req.query.month;
-	res.locals.lastDayOfPreviousMonth =
+	let formInfo = req.query.formInfo;
+	let lastDayOfPreviousMonth =
 		new Date(year, month - 1, -1).toISOString().split('T')[0] + ' 00:00:00';
-	res.locals.firstDayOfNextMonth =
+	let firstDayOfNextMonth =
 		new Date(year, month, 1).toISOString().split('T')[0] + ' 00:00:00';
 	let submissions = await jotGetSubs(res);
-	// console.log(submissions);
+	// console.log('FORMINFO: ' + formInfo);
 	res.render('all', {
 		forms: JSON.stringify(forms),
-		f: res.locals.lastDayOfPreviousMonth,
-		l: res.locals.firstDayOfNextMonth,
+		lastDayOfPreviousMonth: lastDayOfPreviousMonth,
+		firstDayOfNextMonth: firstDayOfNextMonth,
 		subs: submissions,
+		formInfo: formInfo,
 	});
 });
+
+// Gathering just the title and id
+async function formInfoFormat(forms) {
+	let formInfoFormat = forms.map((form) => {
+		return {
+			title: form.title,
+			id: form.id,
+		};
+	});
+	return formInfoFormat;
+}
 
 //Grabbing all active forms
 async function getAllForms() {

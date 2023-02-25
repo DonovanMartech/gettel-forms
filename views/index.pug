@@ -2,41 +2,39 @@ extends layout
 include mixins/formCard
 
 block content
-  .container
-    .row.g-3
-      .col-12.text-center.mb-5
-        h1 Gettel Reports
-      .col-12 
-        h2 All submissions for:
+  .row.g-3      
+    .col-12 
+      h2 All submissions for:
 
-      
-      .col-12        
 
-        form(action='/all', method="GET").row.g-3
-          div.col-12.col-md-6.col-lg-4
-            label(for="year").form-label Year
-            select(name="year", id="year").form-select
-              option(value="2023") 2023
-          div.col-12.col-md-6.col-lg-4
-            label(for="month").form-label.mx-2 Month
-            select(name="month", id="month").form-select
-              - for (let i = 1; i <= 12; i++)
-                if i < 10
-                  - let monthWithZero = "0" + i
-                  option(value=monthWithZero) 0#{i}
-                else
-                  option(value=i)= i
-          div.col-12
-            button(type="submit").btn.btn-primary Submit
-            
-    .row.mt-5.g-3
-      .col-12
-        h2 Active Forms
+    .col-12        
 
-      each f in ogForms
-        +formCard(f)
+      form(action='/all' method="GET").row.g-3
+        div.col-12.col-md-6.col-lg-4
+          label(for="year").form-label Year
+          select(name="year" id="year").form-select
+            option(value="2023") 2023
+        div.col-12.col-md-6.col-lg-4
+          label(for="month").form-label.mx-2 Month
+          select(name="month" id="month").form-select
+            - for (let i = 1; i <= 12; i++)
+              if i < 10
+                - let monthWithZero = "0" + i
+                option(value=monthWithZero) 0#{i}
+              else
+                option(value=i)= i
+        div.col-12
+          input(name="formInfo" type="hidden" value=formInfo)
+          button(type="submit").btn.btn-primary Submit
 
-    //- .row
-    //-     - string = JSON.stringify(ogForms, null, 2)
-    //-     pre
-    //-       code= string
+  .row.mt-5.g-3
+    .col-12
+      h2 Active Forms
+
+    each f in ogForms
+      +formCard(f)
+
+  //- .row
+  //-     - string = JSON.stringify(ogForms, null, 2)
+  //-     pre
+  //-       code= string
