@@ -31,9 +31,9 @@ router.get('/all', async (req, res, next) => {
 	let month = req.query.month;
 	let formInfo = JSON.parse(req.query.formInfo);
 	let lastDayOfPreviousMonth =
-		new Date(year, month - 1, -1).toISOString().split('T')[0] + ' 00:00:00';
+		new Date(year, month - 1, -1);
 	let firstDayOfNextMonth =
-		new Date(year, month, 1).toISOString().split('T')[0] + ' 00:00:00';
+		new Date(year, month, 1);
 	let submissions = await jotGetSubs(lastDayOfPreviousMonth, firstDayOfNextMonth);
 	// console.log('FORMINFO: ' + formInfo);
 	res.render('all', {

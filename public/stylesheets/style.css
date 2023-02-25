@@ -10,3 +10,7 @@ a {
 .card-min-height {
   min-height: 140px;
 }
+
+#getSubs {
+  width: 10em;
+}

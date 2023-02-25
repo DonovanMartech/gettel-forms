@@ -25,7 +25,9 @@ block content
                 option(value=i)= i
         div.col-12
           input(name="formInfo" type="hidden" value=formInfo)
-          button(type="submit").btn.btn-primary Submit
+          button(type="submit").btn.btn-primary#getSubs 
+            span.spinner-border.spinner-border-sm(role="status" aria-hidden="true").d-none
+            span Submit
 
   .row.mt-5.g-3
     .col-12
