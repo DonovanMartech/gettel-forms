@@ -35,12 +35,14 @@ router.get('/all', async (req, res, next) => {
 	let firstDayOfNextMonth =
 		new Date(year, month, 1);
 	let submissions = await jotGetSubs(lastDayOfPreviousMonth, firstDayOfNextMonth);
-	// console.log('FORMINFO: ' + formInfo);
+	// console.log(formatSubmissions(submissions, formInfo));
+	let testFormat = await getAnswers(submissions, formInfo)
 	res.render('all', {
 		lastDayOfPreviousMonth: lastDayOfPreviousMonth,
 		firstDayOfNextMonth: firstDayOfNextMonth,
 		subs: submissions,
 		formInfo: formInfo,
+		test: testFormat
 	});
 });
 
@@ -88,6 +90,63 @@ async function jotGetSubs(prevMonth, nextMonth) {
 			console.log(e);
 		});
 	return submission;
+}
+
+// old might remove
+// async function formatSubmissions(subs, formInfo) {
+// 	// creat array to hold formatted submissions
+// 	const formattedSubs = [];
+// 	const justTheAnswers = [];
+// 	let test;
+// 	// loop through submissions with given form id from formInfo
+
+// 	let filteredSubs = subs.filter((sub) => {
+// 		return sub.answer === 'Poor';
+// 	});
+
+// 	formInfo.forEach((form) => {
+// 		test = subs.map((sub) => {
+// 			if (form.id === sub.form_id) {
+// 				let edit = sub.answers;
+// 				edit.info = form;
+// 				edit.info.answer = 'Heading'
+				
+
+// 				return edit;
+// 			}			
+// 		});
+// 	});
+
+	
+
+// 	let removeNoAnswer = test.filter((sub) => {
+// 		let asArray = Object.entries(sub);
+// 		console.log('sub ' + JSON.stringify(asArray, null, 2));
+// 		return asArray.answer === 'Poor';
+// 	});
+
+// 	// console.log('TEST' + JSON.stringify(filteredSubs));
+// 	// return test;
+// 	// return removeNoAnswer;
+
+// }
+
+async function getAnswers(data, formInfo) {
+  // map() the answers property of each object in the array
+  const gotAnswers = data.map((item) => {
+    return item.answers;
+  });
+
+  // map() the object's values into an array
+  const answersToArray = gotAnswers.map((item) => {    
+    let arrayItem = Object.values(item);
+		arrayItem[0].what = 'Heading';
+		return arrayItem;
+  });
+	
+
+  // return the array of arrays
+  return answersToArray;
 }
 
 module.exports = router;
