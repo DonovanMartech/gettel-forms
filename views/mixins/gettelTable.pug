@@ -1,0 +1,18 @@
+mixin gettelTable(data)
+  .table-responsive
+    table.table.table-bordered.table-hover
+      each val, index in data
+        each newVal, j in val
+          if newVal.what
+            thead 
+              tr 
+                th(scope="col")= newVal.text 
+
+      
+
+
+  each val, index in data 
+    //- p= 'test: ' + JSON.stringify(val, null, 2)
+
+    each newVal, j in val
+      p= 'test: ' + j + ' ' + JSON.stringify(newVal, null, 2)

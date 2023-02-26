@@ -12,7 +12,6 @@ jotform.options({
 let forms = [];
 let ogForms = [];
 
-
 /* GET home page. */
 router.get('/', async function (req, res, next) {
 	ogForms = await getAllForms();
@@ -30,19 +29,20 @@ router.get('/all', async (req, res, next) => {
 	let year = req.query.year;
 	let month = req.query.month;
 	let formInfo = JSON.parse(req.query.formInfo);
-	let lastDayOfPreviousMonth =
-		new Date(year, month - 1, -1);
-	let firstDayOfNextMonth =
-		new Date(year, month, 1);
-	let submissions = await jotGetSubs(lastDayOfPreviousMonth, firstDayOfNextMonth);
+	let lastDayOfPreviousMonth = new Date(year, month - 1, -1);
+	let firstDayOfNextMonth = new Date(year, month, 1);
+	let submissions = await jotGetSubs(
+		lastDayOfPreviousMonth,
+		firstDayOfNextMonth
+	);
 	// console.log(formatSubmissions(submissions, formInfo));
-	let testFormat = await getAnswers(submissions, formInfo)
+	let testFormat = await getAnswers(submissions, formInfo);
 	res.render('all', {
 		lastDayOfPreviousMonth: lastDayOfPreviousMonth,
 		firstDayOfNextMonth: firstDayOfNextMonth,
 		subs: submissions,
 		formInfo: formInfo,
-		test: testFormat
+		test: testFormat,
 	});
 });
 
@@ -110,14 +110,11 @@ async function jotGetSubs(prevMonth, nextMonth) {
 // 				let edit = sub.answers;
 // 				edit.info = form;
 // 				edit.info.answer = 'Heading'
-				
 
 // 				return edit;
-// 			}			
+// 			}
 // 		});
 // 	});
-
-	
 
 // 	let removeNoAnswer = test.filter((sub) => {
 // 		let asArray = Object.entries(sub);
@@ -132,22 +129,24 @@ async function jotGetSubs(prevMonth, nextMonth) {
 // }
 
 async function getAnswers(data, formInfo) {
-  // map() the answers property of each object in the array
-  const gotAnswers = data.map((item) => {
-    return item.answers;
-  });
+	// map() the answers property of each object in the array
+	const gotAnswers = data.map((item) => {
+		return item.answers;
+	});
 
-  // map() the object's values into an array
-  const answersToArray = gotAnswers.map((item) => {    
-    let arrayItem = Object.values(item);
+	// map() the object's values into an array
+	const answersToArray = gotAnswers.map((item) => {
+		let arrayItem = Object.values(item);
 		arrayItem[0].what = 'Heading';
-		return arrayItem;
-  });
-	
+		arrayItem[0].answer = 'Poor'; // Added in so that it will also be returned in the filter
+		let poorFilter = arrayItem.filter((item) => {
+			return item.answer === 'Poor';
+		});
+		return poorFilter;
+	});
 
-  // return the array of arrays
-  return answersToArray;
+	// return the array of arrays
+	return answersToArray;
 }
 
 module.exports = router;
-
