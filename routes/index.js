@@ -138,9 +138,17 @@ async function getAnswers(data, formInfo) {
 	const answersToArray = gotAnswers.map((item) => {
 		let arrayItem = Object.values(item);
 		arrayItem[0].what = 'Heading';
-		arrayItem[0].answer = 'Poor'; // Added in so that it will also be returned in the filter
 		let poorFilter = arrayItem.filter((item) => {
-			return item.answer === 'Poor';
+			if (
+				item.answer === 'Poor' ||
+				item.what === 'Heading'
+			) {
+				return item;
+			}
+			if (item.answer !== undefined && item.answer.toString().includes('https')) {
+				console.log(item.answer);
+				return item;
+			}
 		});
 		return poorFilter;
 	});
