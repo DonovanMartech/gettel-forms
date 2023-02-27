@@ -1,14 +1,77 @@
 extends layout
+include mixins/gettelTable
 
 block content
-  .container-fluid
-    .row
-      .col-12 
-        p Last Day Of Previous Month: #{f}
-        p First Day Of Next Month: #{l}
+  .row.g-3
+    .col-12 
+      p Last Day Of Previous Month: #{lastDayOfPreviousMonth}
+      p First Day Of Next Month: #{firstDayOfNextMonth}
 
+      .table-responsive
+        table.table.table-bordered.table-hover
+          each val in test 
+            +gettelTable(val)
+            //- p= JSON.stringify(val, null, 2)
+          //- pre 
+          //-   code 
+          //-     p= JSON.stringify(test, null, 2)
+            //- +gettelTable(data)
+
+      .table-responsive
+        table.table.table-bordered.table-hover
+          thead
+            tr
+              th(scope="col", span="2") Location
+              //- th(scope="col") TEST
+              //- th(scope="col") TEST
+          thead.table-info
+            tr
+              th(scope="col") TEST
+              th(scope="col") TEST
+              th(scope="col") TEST
+          tbody 
+            tr 
+              td test
+              td test
+              td test
+            tr 
+              td test
+              td test
+              td test
+
+          thead
+            tr
+              th(scope="col", span="2") Location
+              //- th(scope="col") TEST
+              //- th(scope="col") TEST
+          thead.table-info
+            tr
+              th(scope="col") TEST
+              th(scope="col") TEST
+              th(scope="col") TEST
+          tbody 
+            tr 
+              td test
+              td test
+              td test
+            tr 
+              td test
+              td test
+              td test
         
 
-        - s = JSON.stringify(subs, null, 2)
-        pre
-          code= s
+      p form info
+      - fi = JSON.stringify(formInfo, null, 2)
+      pre
+        code= fi
+
+      pre
+        code= JSON.stringify(test, null, 2)
+
+      
+
+      //- - s = JSON.stringify(subs, null, 2)
+      //- pre
+      //-   code= s
+
+

@@ -6,3 +6,11 @@ body {
 a {
   color: #00B7FF;
 }
+
+.card-min-height {
+  min-height: 140px;
+}
+
+#getSubs {
+  width: 10em;
+}
