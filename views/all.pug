@@ -7,9 +7,15 @@ block content
       p Last Day Of Previous Month: #{lastDayOfPreviousMonth}
       p First Day Of Next Month: #{firstDayOfNextMonth}
 
-      pre 
-        code
-          +gettelTable(test)
+      .table-responsive
+        table.table.table-bordered.table-hover
+          each val in test 
+            +gettelTable(val)
+            //- p= JSON.stringify(val, null, 2)
+          //- pre 
+          //-   code 
+          //-     p= JSON.stringify(test, null, 2)
+            //- +gettelTable(data)
 
       .table-responsive
         table.table.table-bordered.table-hover

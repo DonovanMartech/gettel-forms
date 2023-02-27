@@ -1,18 +1,31 @@
 mixin gettelTable(data)
-  .table-responsive
-    table.table.table-bordered.table-hover
-      each val, index in data
-        each newVal, j in val
-          if newVal.what
-            thead 
-              tr 
-                th(scope="col")= newVal.text 
+  //- h1 test
+  //- pre 
+  //-   code
+  //-     p= JSON.stringify(data, null, 2)
+  
+  if data[0].what
+    thead 
+        tr 
+          th(scope="col")= data[0].text
+  else if !data[0].what
+  
+  //- each val, index in data
+  //-   if val.what
+  //-     thead 
+  //-       tr 
+  //-         th(scope="col")= val.text
+  //-   else if !val.what
+  //-     thead 
+  //-       tr 
+  //-         th= val.text
+    //- tbody 
+    //-   tr 
+    //-     td= val.answer
+      
+       
+          
 
       
 
-
-  each val, index in data 
-    //- p= 'test: ' + JSON.stringify(val, null, 2)
-
-    each newVal, j in val
-      p= 'test: ' + j + ' ' + JSON.stringify(newVal, null, 2)
+  
