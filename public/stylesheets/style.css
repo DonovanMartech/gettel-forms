@@ -14,3 +14,13 @@ a {
 #getSubs {
   width: 10em;
 }
+
+/* .table{
+  display: block !important;
+  overflow-x: auto !important;
+  width: 100% !important;
+} */
+
+th, td {
+  white-space: nowrap;
+}

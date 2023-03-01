@@ -4,18 +4,43 @@ include mixins/gettelTable
 block content
   .row.g-3
     .col-12 
-      p Last Day Of Previous Month: #{lastDayOfPreviousMonth}
-      p First Day Of Next Month: #{firstDayOfNextMonth}
+      //- p Last Day Of Previous Month: #{lastDayOfPreviousMonth}
+      //- p First Day Of Next Month: #{firstDayOfNextMonth}
 
-      .table-responsive
-        table.table.table-bordered.table-hover
-          each val in test 
-            +gettelTable(val)
-            //- p= JSON.stringify(val, null, 2)
-          //- pre 
-          //-   code 
-          //-     p= JSON.stringify(test, null, 2)
-            //- +gettelTable(data)
+      //- .table-responsive
+      //-   table.table.table-bordered.table-hover
+      //-     each val in test 
+      //-       +gettelTable(val)
+
+      .table-responsive 
+        table.table
+          thead 
+            tr(scope="row") 
+              th.table-light  Location
+              th.table-light  Landscape grass brown/green?
+              th.table-light  Road sign clean and lights work at night?
+          tbody 
+            tr 
+              td 
+                span.bg-primary.p-1.rounded-3.text-white Gatorland Toyota Body Shop
+              td 
+                span.bg-danger.p-1.rounded-3.text-white Poor
+              td 
+                span.bg-danger.p-1.rounded-3.text-white Poor
+          thead 
+            tr(scope="row") 
+              th.table-light  Location
+              th.table-light  Landscape grass brown/green?
+              th.table-light  Road sign clean and lights work at night?
+          tbody 
+            tr 
+              td
+                span.bg-primary.p-1.rounded-3.text-white Gatorland Toyota Body Shop
+              td 
+                span.bg-danger.p-1.rounded-3.text-white Poor
+              td 
+                span.bg-danger.p-1.rounded-3.text-white Poor
+
 
       .table-responsive
         table.table.table-bordered.table-hover
