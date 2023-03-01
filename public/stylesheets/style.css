@@ -1,16 +1,41 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+	padding: 50px;
+	font: 14px 'Lucida Grande', Helvetica, Arial, sans-serif;
 }
 
 a {
-  color: #00B7FF;
+	color: #00b7ff;
 }
 
 .card-min-height {
-  min-height: 140px;
+	min-height: 140px;
 }
 
 #getSubs {
-  width: 10em;
+	width: 10em;
+}
+
+/* .table{
+  display: block !important;
+  overflow-x: auto !important;
+  width: 100% !important;
+} */
+
+th,
+td {
+	white-space: nowrap;
+}
+
+.redPill {
+	background-color: #dc3545;
+	color: white;
+	padding: 4px 15px;
+	border-radius: 2em;
+}
+
+.bluePill {
+	background-color: #0d6efd;
+	color: white;
+	padding: 4px 15px;
+	border-radius: 2em;
 }

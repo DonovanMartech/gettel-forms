@@ -138,15 +138,40 @@ async function getAnswers(data, formInfo) {
 	const answersToArray = gotAnswers.map((item) => {
 		let arrayItem = Object.values(item);
 		arrayItem[0].what = 'Heading';
-		arrayItem[0].answer = 'Poor'; // Added in so that it will also be returned in the filter
-		let poorFilter = arrayItem.filter((item) => {
-			return item.answer === 'Poor';
+		let poorFilter = arrayItem.filter((item, index) => {
+			if (
+				item.answer === 'Poor' ||
+				item.what === 'Heading'
+			) {
+				//TODO store order number of poor answer
+				// then get the next two according to order number
+				// add answers as properties to the original order number
+				return item;
+			}
+
+			//TODO once above comment is done, remove this if statement
+			if (item.answer !== undefined && item.answer.toString().includes('https')) {
+				return item;
+			}
 		});
 		return poorFilter;
 	});
 
 	// return the array of arrays
 	return answersToArray;
+}
+
+async function getAdditionalData(data) {
+	let poor = data.answer === 'Poor';
+	let order = data.order;
+	let gatheredInfo;
+	if (poor) {
+		const otherInfo = data.map((item) => {
+			
+
+		});
+	}
+	
 }
 
 module.exports = router;

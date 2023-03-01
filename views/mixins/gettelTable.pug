@@ -3,13 +3,45 @@ mixin gettelTable(data)
   //- pre 
   //-   code
   //-     p= JSON.stringify(data, null, 2)
-  
-  if data[0].what
-    thead 
-        tr 
-          th(scope="col")= data[0].text
-  else if !data[0].what
-  
+  //- h1= data.length
+  //- p= JSON.stringify(data, null, 2)
+  //- - for (let i = 0; i < data.length; i++) {
+  //-   thead
+  //-     tr 
+  //-       th(scope="col" span="2")= data[0].text
+  //- - }
+
+  thead 
+    tr 
+      th(scope="col")= data[0].text
+
+  thead.table-info
+    tr 
+      - for (let i = 1; i < data.length; i++) {
+        if !data[i].text
+          th(scope="col") Image
+        else
+          th(scope="col")= data[i].text
+      - }
+  tbody 
+    tr 
+      - for (let i = 1; i < data.length; i++) {
+        if !data[i].text
+          th(scope="col") 
+            a(href= data[i].answer) Link
+        else
+          th(scope="col")= data[i].answer
+      - }
+      
+
+
+
+  //- if data[0].what
+  //-   thead 
+  //-       tr 
+  //-         th(scope="col")= data[0].text
+  //- else if !data[0].what
+
   //- each val, index in data
   //-   if val.what
   //-     thead 
@@ -19,13 +51,12 @@ mixin gettelTable(data)
   //-     thead 
   //-       tr 
   //-         th= val.text
-    //- tbody 
-    //-   tr 
-    //-     td= val.answer
-      
-       
-          
+  //- tbody 
+  //-   tr 
+  //-     td= val.answer
 
-      
 
-  
+
+
+
+
