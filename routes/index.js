@@ -135,10 +135,12 @@ async function getAnswers(data, formInfo) {
 	});
 
 	// map() the object's values into an array
-	const answersToArray = gotAnswers.map((item) => {
+	const answersToArray = gotAnswers.map((item, index) => {
+		let currentArray = Object.values(gotAnswers[index]);
+		// console.log(`array index ${index}: ${currentArray}`);
 		let arrayItem = Object.values(item);
 		arrayItem[0].what = 'Heading';
-		let poorFilter = arrayItem.filter((item, index) => {
+		let poorFilter = arrayItem.filter((item) => {
 			if (
 				item.answer === 'Poor' ||
 				item.what === 'Heading'
@@ -146,6 +148,7 @@ async function getAnswers(data, formInfo) {
 				//TODO store order number of poor answer
 				// then get the next two according to order number
 				// add answers as properties to the original order number
+				getAdditionalData(item)
 				return item;
 			}
 
@@ -154,6 +157,7 @@ async function getAnswers(data, formInfo) {
 				return item;
 			}
 		});
+		
 		return poorFilter;
 	});
 
@@ -161,16 +165,19 @@ async function getAnswers(data, formInfo) {
 	return answersToArray;
 }
 
-async function getAdditionalData(data) {
+async function getAdditionalData(data, curArr) {
 	let poor = data.answer === 'Poor';
 	let order = data.order;
-	let gatheredInfo;
-	if (poor) {
-		const otherInfo = data.map((item) => {
+	let picOrder = order + 1;
+	let descOrder = order + 2;
+	console.log(`pic order: ${picOrder}`, `desc order: ${descOrder}`);
+	// let gatheredInfo;
+	// if (poor) {
+	// 	const otherInfo = data.map((item) => {
 			
 
-		});
-	}
+	// 	});
+	// }
 	
 }
 
