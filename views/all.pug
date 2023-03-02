@@ -17,21 +17,27 @@ block content
           thead 
             tr(scope="row") 
               th.table-light  Location
-              th.table-light  Landscape grass brown/green?
-              th.table-light  Road sign clean and lights work at night?
+              th.table-light.border-start  Landscape grass brown/green?
+              th.table-light.fw-normal  Photo
+              th.table-light.fw-normal.border-end  Description
           tbody 
             tr 
-              td 
+              td
                 span.bluePill Gatorland Toyota Body Shop
-              td 
+              td.border-start
                 span.redPill Poor
-              td 
-                span.redPill Poor
+              td
+                a(href="#") Link
+              td.descCell.border-end
+                span.text-wrap Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore accusantium dolores magni, saepe adipisci culpa odit doloremque, quae quod nam distinctio tempore cupiditate, veritatis commodi sit eos hic sint vel?
+            tr 
+           
           thead 
             tr(scope="row") 
               th.table-light  Location
               th.table-light  Landscape grass brown/green?
-              th.table-light  Road sign clean and lights work at night?
+              th.table-light.fw-normal  Photo
+              th.table-light.fw-normal  Description
           tbody 
             tr 
               td
@@ -39,50 +45,11 @@ block content
               td 
                 span.redPill Poor
               td 
-                span.redPill Poor
-
-
-      .table-responsive
-        table.table.table-bordered.table-hover
-          thead
-            tr
-              th(scope="col", span="2") Location
-              //- th(scope="col") TEST
-              //- th(scope="col") TEST
-          thead.table-info
-            tr
-              th(scope="col") TEST
-              th(scope="col") TEST
-              th(scope="col") TEST
-          tbody 
+                a(href="#") Link
+              td.descCell
+                span.text-wrap Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore accusantium dolores magni, saepe adipisci culpa odit doloremque, quae quod nam distinctio tempore cupiditate, veritatis commodi sit eos hic sint vel?
             tr 
-              td test
-              td test
-              td test
-            tr 
-              td test
-              td test
-              td test
-
-          thead
-            tr
-              th(scope="col", span="2") Location
-              //- th(scope="col") TEST
-              //- th(scope="col") TEST
-          thead.table-info
-            tr
-              th(scope="col") TEST
-              th(scope="col") TEST
-              th(scope="col") TEST
-          tbody 
-            tr 
-              td test
-              td test
-              td test
-            tr 
-              td test
-              td test
-              td test
+            
         
 
       p form info

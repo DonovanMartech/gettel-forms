@@ -24,6 +24,21 @@ a {
 th,
 td {
 	white-space: nowrap;
+	padding-right: 40px !important;
+	/* vertical-align: middle; */
+}
+
+td {
+	padding-top: 10px !important;
+	/* vertical-align: middle; */
+}
+
+tr {
+	height: 56px;
+}
+
+.descCell {
+	min-width: 350px;
 }
 
 .redPill {
