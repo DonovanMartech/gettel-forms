@@ -7,12 +7,12 @@ block content
       //- p Last Day Of Previous Month: #{lastDayOfPreviousMonth}
       //- p First Day Of Next Month: #{firstDayOfNextMonth}
 
-      //- .table-responsive
-      //-   table.table.table-bordered.table-hover
-      //-     each val in test 
-      //-       +gettelTable(val)
+      .table-responsive
+        table.table
+          each val in test 
+            +gettelTable(val)
 
-      .table-responsive 
+      //- .table-responsive 
         table.table
           thead 
             tr(scope="row") 
@@ -48,13 +48,13 @@ block content
             
         
 
-      p form info
-      - fi = JSON.stringify(formInfo, null, 2)
-      pre
-        code= fi
+      //- p form info
+      //- - fi = JSON.stringify(formInfo, null, 2)
+      //- pre
+      //-   code= fi
 
-      pre
-        code= JSON.stringify(test, null, 2)
+      //- pre
+      //-   code= JSON.stringify(test, null, 2)
 
       
 

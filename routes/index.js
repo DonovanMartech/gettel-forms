@@ -137,7 +137,7 @@ async function getAnswers(data, formInfo) {
 	// map() the object's values into an array
 	const answersToArray = gotAnswers.map((item, index) => {
 		let currentArray = Object.values(gotAnswers[index]);
-		// console.log(`array index ${index}: ${currentArray}`);
+		// console.log(`array index ${index}: ${JSON.stringify(currentArray)}`);
 		let arrayItem = Object.values(item);
 		arrayItem[0].what = 'Heading';
 		let poorFilter = arrayItem.filter((item) => {
@@ -145,15 +145,9 @@ async function getAnswers(data, formInfo) {
 				item.answer === 'Poor' ||
 				item.what === 'Heading'
 			) {
-				//TODO store order number of poor answer
-				// then get the next two according to order number
-				// add answers as properties to the original order number
-				getAdditionalData(item)
-				return item;
-			}
-
-			//TODO once above comment is done, remove this if statement
-			if (item.answer !== undefined && item.answer.toString().includes('https')) {
+				
+				getAdditionalData(item, currentArray)
+				
 				return item;
 			}
 		});
@@ -166,19 +160,33 @@ async function getAnswers(data, formInfo) {
 }
 
 async function getAdditionalData(data, curArr) {
-	let poor = data.answer === 'Poor';
 	let order = data.order;
-	let picOrder = order + 1;
-	let descOrder = order + 2;
-	console.log(`pic order: ${picOrder}`, `desc order: ${descOrder}`);
-	// let gatheredInfo;
-	// if (poor) {
-	// 	const otherInfo = data.map((item) => {
-			
+	let picOrder = JSON.stringify(+order + 1);
+	let descOrder = JSON.stringify(+order + 2);
+	let header;
 
-	// 	});
-	// }
-	
+	if (data.what === 'Heading') {
+		header = data;
+	}
+
+	if (data.answer === 'Poor') {
+		curArr.map((item, i, source) => {
+			if (item.order === picOrder) {
+				data.picAnswer = item.answer;
+			};
+			if (item.order === descOrder) {
+				data.descAnswer = item.answer;
+			}
+			if (item.name === 'location') {
+				data.location = item.answer;
+				source[0].location = item.answer;
+			}
+
+		});
+		// console.log(data);
+	}
+	// I was going to return the data but im modifying it directly so there is no need
+	// return order;
 }
 
 module.exports = router;
