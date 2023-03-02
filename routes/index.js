@@ -9,13 +9,11 @@ jotform.options({
 	apiKey: apiKey,
 });
 
-let forms = [];
 let ogForms = [];
 
 /* GET home page. */
 router.get('/', async function (req, res, next) {
 	ogForms = await getAllForms();
-	// console.log(ogForms);
 	let formInfo = await formInfoFormat(ogForms);
 	res.render('index', {
 		title: 'Express',
@@ -92,42 +90,6 @@ async function jotGetSubs(prevMonth, nextMonth) {
 	return submission;
 }
 
-// old might remove
-// async function formatSubmissions(subs, formInfo) {
-// 	// creat array to hold formatted submissions
-// 	const formattedSubs = [];
-// 	const justTheAnswers = [];
-// 	let test;
-// 	// loop through submissions with given form id from formInfo
-
-// 	let filteredSubs = subs.filter((sub) => {
-// 		return sub.answer === 'Poor';
-// 	});
-
-// 	formInfo.forEach((form) => {
-// 		test = subs.map((sub) => {
-// 			if (form.id === sub.form_id) {
-// 				let edit = sub.answers;
-// 				edit.info = form;
-// 				edit.info.answer = 'Heading'
-
-// 				return edit;
-// 			}
-// 		});
-// 	});
-
-// 	let removeNoAnswer = test.filter((sub) => {
-// 		let asArray = Object.entries(sub);
-// 		console.log('sub ' + JSON.stringify(asArray, null, 2));
-// 		return asArray.answer === 'Poor';
-// 	});
-
-// 	// console.log('TEST' + JSON.stringify(filteredSubs));
-// 	// return test;
-// 	// return removeNoAnswer;
-
-// }
-
 async function getAnswers(data, formInfo) {
 	// map() the answers property of each object in the array
 	const gotAnswers = data.map((item) => {
@@ -135,25 +97,23 @@ async function getAnswers(data, formInfo) {
 	});
 
 	// map() the object's values into an array
-	const answersToArray = gotAnswers.map((item) => {
+	const answersToArray = gotAnswers.map((item, index) => {
+		let currentArray = Object.values(gotAnswers[index]);
+		// console.log(`array index ${index}: ${JSON.stringify(currentArray)}`);
 		let arrayItem = Object.values(item);
 		arrayItem[0].what = 'Heading';
-		let poorFilter = arrayItem.filter((item, index) => {
+		let poorFilter = arrayItem.filter((item) => {
 			if (
 				item.answer === 'Poor' ||
 				item.what === 'Heading'
 			) {
-				//TODO store order number of poor answer
-				// then get the next two according to order number
-				// add answers as properties to the original order number
-				return item;
-			}
-
-			//TODO once above comment is done, remove this if statement
-			if (item.answer !== undefined && item.answer.toString().includes('https')) {
+				
+				getAdditionalData(item, currentArray)
+				
 				return item;
 			}
 		});
+		
 		return poorFilter;
 	});
 
@@ -161,17 +121,33 @@ async function getAnswers(data, formInfo) {
 	return answersToArray;
 }
 
-async function getAdditionalData(data) {
-	let poor = data.answer === 'Poor';
+async function getAdditionalData(data, curArr) {
 	let order = data.order;
-	let gatheredInfo;
-	if (poor) {
-		const otherInfo = data.map((item) => {
-			
+	let picOrder = JSON.stringify(+order + 1);
+	let descOrder = JSON.stringify(+order + 2);
+
+	if (data.what === 'Heading') {
+		header = data;
+	}
+
+	if (data.answer === 'Poor') {
+		curArr.map((item, i, source) => {
+			if (item.order === picOrder) {
+				data.picAnswer = item.answer;
+			};
+			if (item.order === descOrder) {
+				data.descAnswer = item.answer;
+			}
+			if (item.name === 'location') {
+				data.location = item.answer;
+				source[0].location = item.answer;
+			}
 
 		});
+		// console.log(data);
 	}
-	
+	// I was going to return the data but im modifying it directly so there is no need
+	// return order;
 }
 
 module.exports = router;

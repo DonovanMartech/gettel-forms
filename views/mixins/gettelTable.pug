@@ -1,62 +1,28 @@
 mixin gettelTable(data)
-  //- h1 test
-  //- pre 
-  //-   code
-  //-     p= JSON.stringify(data, null, 2)
-  //- h1= data.length
-  //- p= JSON.stringify(data, null, 2)
-  //- - for (let i = 0; i < data.length; i++) {
-  //-   thead
-  //-     tr 
-  //-       th(scope="col" span="2")= data[0].text
-  //- - }
+  if data.length > 1
+    thead 
+      tr(scope="row")
+        th.table-light Location
+        - for (let i = 1; i < data.length; i++) {
+          th.table-light.border-start= data[i].text
+          th.table-light.fw-normal.border-end Description                  
+        - }
+    tbody 
+      tr 
+        td 
+          span.bluePill= data[0].location
 
-  thead 
-    tr 
-      th(scope="col")= data[0].text
+        - for (let i = 1; i < data.length; i++) {
+          td
+            span.redPill= data[i].answer
+          if !data[i].descAnswer
+            td.descCell.border-end 
+              span.text-wrap 
+                a(href= data[i].picAnswer) Photo
+          else 
+            td.descCell.border-end 
+              span.text-wrap 
+                a(href= data[i].picAnswer)= data[i].descAnswer
 
-  thead.table-info
-    tr 
-      - for (let i = 1; i < data.length; i++) {
-        if !data[i].text
-          th(scope="col") Image
-        else
-          th(scope="col")= data[i].text
-      - }
-  tbody 
-    tr 
-      - for (let i = 1; i < data.length; i++) {
-        if !data[i].text
-          th(scope="col") 
-            a(href= data[i].answer) Link
-        else
-          th(scope="col")= data[i].answer
-      - }
-      
-
-
-
-  //- if data[0].what
-  //-   thead 
-  //-       tr 
-  //-         th(scope="col")= data[0].text
-  //- else if !data[0].what
-
-  //- each val, index in data
-  //-   if val.what
-  //-     thead 
-  //-       tr 
-  //-         th(scope="col")= val.text
-  //-   else if !val.what
-  //-     thead 
-  //-       tr 
-  //-         th= val.text
-  //- tbody 
-  //-   tr 
-  //-     td= val.answer
-
-
-
-
-
-
+        - }
+      tr
