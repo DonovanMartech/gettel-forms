@@ -4,62 +4,7 @@ include mixins/gettelTable
 block content
   .row.g-3
     .col-12 
-      //- p Last Day Of Previous Month: #{lastDayOfPreviousMonth}
-      //- p First Day Of Next Month: #{firstDayOfNextMonth}
-
       .table-responsive
         table.table
           each val in test 
             +gettelTable(val)
-
-      //- .table-responsive 
-        table.table
-          thead 
-            tr(scope="row") 
-              th.table-light  Location
-              th.table-light.border-start  Landscape grass brown/green?
-              th.table-light.fw-normal.border-end  Description
-          tbody 
-            tr 
-              td
-                span.bluePill Gatorland Toyota Body Shop
-              td.border-start
-                span.redPill Poor
-              td.descCell.border-end
-                span.text-wrap 
-                  a(href="#") Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore accusantium dolores magni, saepe adipisci culpa odit doloremque, quae quod nam distinctio tempore cupiditate, veritatis commodi sit eos hic sint vel?
-            tr 
-           
-          thead 
-            tr(scope="row") 
-              th.table-light  Location
-              th.table-light.border-start  Landscape grass brown/green?
-              th.table-light.fw-normal.border-end  Description
-          tbody 
-            tr 
-              td
-                span.bluePill Gatorland Toyota Body Shop
-              td.border-start
-                span.redPill Poor
-              td.descCell.border-end
-                span.text-wrap 
-                  a(href="#") Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore accusantium dolores magni, saepe adipisci culpa odit doloremque, quae quod nam distinctio tempore cupiditate, veritatis commodi sit eos hic sint vel?
-            tr 
-            
-        
-
-      //- p form info
-      //- - fi = JSON.stringify(formInfo, null, 2)
-      //- pre
-      //-   code= fi
-
-      //- pre
-      //-   code= JSON.stringify(test, null, 2)
-
-      
-
-      //- - s = JSON.stringify(subs, null, 2)
-      //- pre
-      //-   code= s
-
-

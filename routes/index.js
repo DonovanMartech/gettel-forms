@@ -9,13 +9,11 @@ jotform.options({
 	apiKey: apiKey,
 });
 
-let forms = [];
 let ogForms = [];
 
 /* GET home page. */
 router.get('/', async function (req, res, next) {
 	ogForms = await getAllForms();
-	// console.log(ogForms);
 	let formInfo = await formInfoFormat(ogForms);
 	res.render('index', {
 		title: 'Express',
@@ -92,42 +90,6 @@ async function jotGetSubs(prevMonth, nextMonth) {
 	return submission;
 }
 
-// old might remove
-// async function formatSubmissions(subs, formInfo) {
-// 	// creat array to hold formatted submissions
-// 	const formattedSubs = [];
-// 	const justTheAnswers = [];
-// 	let test;
-// 	// loop through submissions with given form id from formInfo
-
-// 	let filteredSubs = subs.filter((sub) => {
-// 		return sub.answer === 'Poor';
-// 	});
-
-// 	formInfo.forEach((form) => {
-// 		test = subs.map((sub) => {
-// 			if (form.id === sub.form_id) {
-// 				let edit = sub.answers;
-// 				edit.info = form;
-// 				edit.info.answer = 'Heading'
-
-// 				return edit;
-// 			}
-// 		});
-// 	});
-
-// 	let removeNoAnswer = test.filter((sub) => {
-// 		let asArray = Object.entries(sub);
-// 		console.log('sub ' + JSON.stringify(asArray, null, 2));
-// 		return asArray.answer === 'Poor';
-// 	});
-
-// 	// console.log('TEST' + JSON.stringify(filteredSubs));
-// 	// return test;
-// 	// return removeNoAnswer;
-
-// }
-
 async function getAnswers(data, formInfo) {
 	// map() the answers property of each object in the array
 	const gotAnswers = data.map((item) => {
@@ -163,7 +125,6 @@ async function getAdditionalData(data, curArr) {
 	let order = data.order;
 	let picOrder = JSON.stringify(+order + 1);
 	let descOrder = JSON.stringify(+order + 2);
-	let header;
 
 	if (data.what === 'Heading') {
 		header = data;
