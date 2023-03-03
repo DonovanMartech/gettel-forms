@@ -2,14 +2,14 @@ extends layout
 include mixins/gettelTable
 
 block content
-  .row.g-3
-    .col-12.col-md-4
-      button.btn.btn-success#export-btn Export CSV
-    .col-12 
-      .table-responsive
-        table.table  
-          if formInfo.length > 0  
+  if formInfo.length > 0 
+    .row.g-3
+      .col-12.col-md-4
+        button.btn.btn-success#export-btn Export CSV
+      .col-12 
+        .table-responsive
+          table.table 
             each val in formInfo   
               +gettelTable(val)
-          else 
-            h3.fw-light.text-center.font-weight-light No submissions for #{selectedDate.month} #{selectedDate.year}
+  else 
+    h3.fw-light.text-center.font-weight-light No submissions for #{selectedDate.month} #{selectedDate.year}
