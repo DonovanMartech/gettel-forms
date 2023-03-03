@@ -16,7 +16,7 @@ router.get('/', async function (req, res, next) {
 	ogForms = await getAllForms();
 	let formInfo = await formInfoFormat(ogForms);
 	res.render('index', {
-		title: 'Express',
+		title: 'Gettel Forms',
 		ogForms: ogForms,
 		formInfo: formInfo,
 	});
