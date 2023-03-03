@@ -46,6 +46,8 @@ router.get('/all', async (req, res, next) => {
 	});
 });
 
+
+
 // Gathering just the title and id
 async function formInfoFormat(forms) {
 	let formInfoFormat = forms.map((form) => {
