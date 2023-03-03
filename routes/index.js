@@ -26,21 +26,23 @@ router.get('/', async function (req, res, next) {
 router.get('/all', async (req, res, next) => {
 	let year = req.query.year;
 	let month = req.query.month;
-	let formInfo = JSON.parse(req.query.formInfo);
 	let lastDayOfPreviousMonth = new Date(year, month - 1, -1);
 	let firstDayOfNextMonth = new Date(year, month, 1);
 	let submissions = await jotGetSubs(
 		lastDayOfPreviousMonth,
 		firstDayOfNextMonth
 	);
-	// console.log(formatSubmissions(submissions, formInfo));
-	let testFormat = await getAnswers(submissions, formInfo);
+	let formInfo = await getAnswers(submissions);
+
 	res.render('all', {
 		lastDayOfPreviousMonth: lastDayOfPreviousMonth,
 		firstDayOfNextMonth: firstDayOfNextMonth,
 		subs: submissions,
 		formInfo: formInfo,
-		test: testFormat,
+		selectedDate: {
+			year: year,
+			month: getMonthName(month),
+		}
 	});
 });
 
@@ -90,7 +92,7 @@ async function jotGetSubs(prevMonth, nextMonth) {
 	return submission;
 }
 
-async function getAnswers(data, formInfo) {
+async function getAnswers(data) {
 	// map() the answers property of each object in the array
 	const gotAnswers = data.map((item) => {
 		return item.answers;
@@ -116,9 +118,10 @@ async function getAnswers(data, formInfo) {
 		
 		return poorFilter;
 	});
-
+	const filtered = await removeEmptyArray(answersToArray);
+	// console.log(filtered);
 	// return the array of arrays
-	return answersToArray;
+	return filtered;
 }
 
 async function getAdditionalData(data, curArr) {
@@ -148,6 +151,20 @@ async function getAdditionalData(data, curArr) {
 	}
 	// I was going to return the data but im modifying it directly so there is no need
 	// return order;
+}
+
+function getMonthName(monthNumber) {
+  const date = new Date();
+  date.setMonth(monthNumber - 1);
+
+  return date.toLocaleString('en-US', { month: 'long' });
+}
+
+async function removeEmptyArray(arr) {
+	let newArr = arr.filter((item) => {
+		return item.length > 1;
+	});
+	return newArr;
 }
 
 module.exports = router;

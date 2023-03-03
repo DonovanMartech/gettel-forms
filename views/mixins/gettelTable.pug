@@ -1,28 +1,27 @@
-mixin gettelTable(data)
-  if data.length > 1
-    thead 
-      tr(scope="row")
-        th.table-light Location
-        - for (let i = 1; i < data.length; i++) {
-          th.table-light.border-start= data[i].text
-          th.table-light.fw-normal.border-end Description                  
-        - }
-    tbody 
-      tr 
-        td 
-          span.bluePill= data[0].location
+mixin gettelTable(data) 
+  thead 
+    tr(scope="row")
+      th.table-light Location
+      - for (let i = 1; i < data.length; i++) {
+        th.table-light.border-start= data[i].text
+        th.table-light.fw-normal.border-end Description                  
+      - }
+  tbody 
+    tr 
+      td 
+        span.bluePill= data[0].location
 
-        - for (let i = 1; i < data.length; i++) {
-          td
-            span.redPill= data[i].answer
-          if !data[i].descAnswer
-            td.descCell.border-end 
-              span.text-wrap 
-                a(href= data[i].picAnswer) Photo
-          else 
-            td.descCell.border-end 
-              span.text-wrap 
-                a(href= data[i].picAnswer)= data[i].descAnswer
+      - for (let i = 1; i < data.length; i++) {
+        td
+          span.redPill= data[i].answer
+        if !data[i].descAnswer
+          td.descCell.border-end 
+            span.text-wrap 
+              a(href= data[i].picAnswer) Photo
+        else 
+          td.descCell.border-end 
+            span.text-wrap 
+              a(href= data[i].picAnswer)= data[i].descAnswer
 
-        - }
-      tr
+      - }
+    tr
