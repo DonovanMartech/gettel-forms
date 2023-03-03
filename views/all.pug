@@ -5,6 +5,9 @@ block content
   .row.g-3
     .col-12 
       .table-responsive
-        table.table
-          each val in test 
-            +gettelTable(val)
+        table.table  
+          if formInfo.length > 0  
+            each val in formInfo   
+              +gettelTable(val)
+          else 
+            h3.fw-light.text-center.font-weight-light No submissions for #{selectedDate.month} #{selectedDate.year}
