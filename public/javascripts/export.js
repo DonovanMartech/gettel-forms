@@ -17,15 +17,15 @@ const tableToCSV = () => {
       // a row and push it to csvrow
       let links = cols[j]?.children[0]?.children[0]?.href
       if (links) {
-        // csvrow.push(`=HYPERLINK("${links}","${cols[j].innerText}")`)
-        csvrow.push('=HYPERLINK("'+links+'", "'+cols[j].innerText+'")')
+        csvrow.push(`"=HYPERLINK(""${links}"",""${cols[j].innerText}"")"`)
+        // csvrow.push("=HYPERLINK(""+links+"";""+cols[j].innerText+"")')
       } else {
         csvrow.push(cols[j].innerText)
       }
     }
 
     // Combine each column value with comma
-    csv_data.push(csvrow.join("\t"))
+    csv_data.push(csvrow.join(","))
   }
   // combine each row data with new line character
   csv_data = csv_data.join("\n")
@@ -40,14 +40,14 @@ const tableToCSV = () => {
 const downloadCSVFile = (csv_data) => {
   // Create CSV file object and feed our
   // csv_data into it
-  CSVFile = new Blob([csv_data], { type: "text/tsv" })
+  CSVFile = new Blob([csv_data], { type: "text/csv" })
 
   // Create to temporary link to initiate
   // download process
   let temp_link = document.createElement("a")
 
   // Download csv file
-  temp_link.download = "GettelForm.tsv"
+  temp_link.download = "GettelForm.csv"
   let url = window.URL.createObjectURL(CSVFile)
   temp_link.href = url
 
