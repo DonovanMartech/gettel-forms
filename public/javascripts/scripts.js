@@ -29,6 +29,10 @@ if (window.location.pathname === '/') {
     // e.preventDefault();
     btnSpinner.classList.remove('d-none');
     btnText.classList.add('d-none');
+    setTimeout(() => {
+      btnSpinner.classList.add('d-none');
+      btnText.classList.remove('d-none');
+    }, 5000);
   });
 }
 
