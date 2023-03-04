@@ -7,13 +7,13 @@ let currentYear = new Date().getFullYear();
 // currentYear = 2028;
 
 if (window.location.pathname === '/') { 
+  const monthSelect = document.getElementById('month');
+  const yearSelect = document.getElementById('year');
+  addYears(yearSelect);
   
   const submitButton = document.getElementById('getSubs');
   const btnSpinner = submitButton.children[0];
   const btnText = submitButton.children[1];
-  const monthSelect = document.getElementById('month');
-  const yearSelect = document.getElementById('year');
-  addYears(yearSelect);
 
   // Set the current month and year in the select elements
   if (currentMonth < 10) {
