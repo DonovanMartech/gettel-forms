@@ -4,6 +4,20 @@ body {
 	font: 14px 'Lucida Grande', Helvetica, Arial, sans-serif;
 }
 
+table {
+	transition: all 800ms ease-in-out 300ms;
+	opacity: 0;
+}
+
+.btn-col {
+	overflow: hidden;
+}
+
+#export-btn {
+	transition: all 600ms ease-out 1000ms;
+	transform: translateY(100%);
+}
+
 a {
 	color: #00b7ff;
 }
