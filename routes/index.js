@@ -11,6 +11,21 @@ jotform.options({
 
 let ogForms = [];
 
+let monthNames = [
+	'January',
+	'February',
+	'March',
+	'April',
+	'May',
+	'June',
+	'July',
+	'August',
+	'September',
+	'October',
+	'November',
+	'December',
+];
+
 /* GET home page. */
 router.get('/', async function (req, res, next) {
 	ogForms = await getAllForms();
@@ -19,11 +34,13 @@ router.get('/', async function (req, res, next) {
 		title: 'Gettel Forms',
 		ogForms: ogForms,
 		formInfo: formInfo,
+		monthNames: monthNames,
 	});
 });
 
 // Displaying all submissions from selected month and year
 router.get('/all', async (req, res, next) => {
+	ogForms = await getAllForms();
 	let year = req.query.year;
 	let month = req.query.month;
 	let lastDayOfPreviousMonth = new Date(year, month - 1, -1);
