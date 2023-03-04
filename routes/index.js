@@ -42,11 +42,9 @@ router.get('/all', async (req, res, next) => {
 		selectedDate: {
 			year: year,
 			month: getMonthName(month),
-		}
+		},
 	});
 });
-
-
 
 // Gathering just the title and id
 async function formInfoFormat(forms) {
@@ -86,6 +84,18 @@ async function jotGetSubs(prevMonth, nextMonth) {
 	let submission = await jotform
 		.getSubmissions(filter)
 		.then((response) => {
+			// Goes through each submission and adds the form title to the first item
+			// by comparing the form_id to the id of the form in the ogForms array
+			response.map((item) => {
+				let formID = item.form_id;
+				let firstItem = item.answers['1'];
+				firstItem.formID = formID;
+				ogForms.forEach((form) => {
+					if (form.id === formID) {
+						firstItem.location = form.title;
+					}
+				});
+			});
 			return response;
 		})
 		.catch((e) => {
@@ -103,25 +113,19 @@ async function getAnswers(data) {
 	// map() the object's values into an array
 	const answersToArray = gotAnswers.map((item, index) => {
 		let currentArray = Object.values(gotAnswers[index]);
-		// console.log(`array index ${index}: ${JSON.stringify(currentArray)}`);
 		let arrayItem = Object.values(item);
 		arrayItem[0].what = 'Heading';
 		let poorFilter = arrayItem.filter((item) => {
-			if (
-				item.answer === 'Poor' ||
-				item.what === 'Heading'
-			) {
-				
-				getAdditionalData(item, currentArray)
-				
+			if (item.answer === 'Poor' || item.what === 'Heading') {
+				getAdditionalData(item, currentArray);
+
 				return item;
 			}
 		});
-		
+
 		return poorFilter;
 	});
 	const filtered = await removeEmptyArray(answersToArray);
-	// console.log(filtered);
 	// return the array of arrays
 	return filtered;
 }
@@ -139,27 +143,21 @@ async function getAdditionalData(data, curArr) {
 		curArr.map((item, i, source) => {
 			if (item.order === picOrder) {
 				data.picAnswer = item.answer;
-			};
+			}
 			if (item.order === descOrder) {
 				data.descAnswer = item.answer;
 			}
-			if (item.name === 'location') {
-				data.location = item.answer;
-				source[0].location = item.answer;
-			}
-
 		});
-		// console.log(data);
 	}
 	// I was going to return the data but im modifying it directly so there is no need
 	// return order;
 }
 
 function getMonthName(monthNumber) {
-  const date = new Date();
-  date.setMonth(monthNumber - 1);
+	const date = new Date();
+	date.setMonth(monthNumber - 1);
 
-  return date.toLocaleString('en-US', { month: 'long' });
+	return date.toLocaleString('en-US', { month: 'long' });
 }
 
 async function removeEmptyArray(arr) {

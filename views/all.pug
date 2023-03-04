@@ -4,7 +4,7 @@ include mixins/gettelTable
 block content
   if formInfo.length > 0 
     .row.g-3
-      .col-12.col-md-4
+      .col-12.col-md-4.btn-col
         button.btn.btn-success#export-btn Export CSV
       .col-12 
         .table-responsive
@@ -13,3 +13,7 @@ block content
               +gettelTable(val)
   else 
     h3.fw-light.text-center.font-weight-light No submissions for #{selectedDate.month} #{selectedDate.year}
+
+  //- pre 
+  //-   code 
+  //-     p= JSON.stringify(formInfo, null, 2)
