@@ -32,7 +32,7 @@ if (window.location.pathname === '/') {
     setTimeout(() => {
       btnSpinner.classList.add('d-none');
       btnText.classList.remove('d-none');
-    }, 5000);
+    }, 1500);
   });
 }
 
