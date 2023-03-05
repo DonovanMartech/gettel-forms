@@ -5,6 +5,8 @@ body {
 }
 
 table {
+	-webkit-transition: all 800ms ease-in-out 300ms;
+	-o-transition: all 800ms ease-in-out 300ms;
 	transition: all 800ms ease-in-out 300ms;
 	opacity: 0;
 }
@@ -14,8 +16,12 @@ table {
 }
 
 #export-btn {
+	-webkit-transition: all 600ms ease-out 1000ms;
+	-o-transition: all 600ms ease-out 1000ms;
 	transition: all 600ms ease-out 1000ms;
-	transform: translateY(100%);
+	-webkit-transform: translateY(100%);
+	    -ms-transform: translateY(100%);
+	        transform: translateY(100%);
 }
 
 a {
