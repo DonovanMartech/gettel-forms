@@ -42,10 +42,8 @@ if (window.location.pathname === '/all') {
   const container = document.querySelector('.container');
   container.classList.add('container-fluid');
   container.classList.remove('container');
-  setTimeout(() => {
-    table.style.opacity = 1
-    exportBtn.style.transform = 'translateY(0)';
-  }, 100);  
+  table.style.opacity = 1
+  exportBtn.style.transform = 'translateY(0)';
 }
 
 
