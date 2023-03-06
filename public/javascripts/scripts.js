@@ -29,20 +29,23 @@ if (window.location.pathname === '/') {
     // e.preventDefault();
     btnSpinner.classList.remove('d-none');
     btnText.classList.add('d-none');
-    setTimeout(() => {
-      btnSpinner.classList.add('d-none');
-      btnText.classList.remove('d-none');
-    }, 1500);
   });
+
+  if (window.performance && window.performance.navigation.type === window.performance.navigation.TYPE_BACK_FORWARD) {
+    btnSpinner.classList.add('d-none');
+    btnText.classList.remove('d-none');
+}
 }
 
 if (window.location.pathname === '/all') {
   const table = document.querySelector('table');
+  const note = document.querySelector('#note');
   const exportBtn = document.getElementById('export-btn');
   const container = document.querySelector('.container');
   container.classList.add('container-fluid');
   container.classList.remove('container');
   table.style.opacity = 1
+  note.style.opacity = 1
   exportBtn.style.transform = 'translateY(0)';
 }
 

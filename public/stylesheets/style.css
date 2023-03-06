@@ -24,6 +24,14 @@ table {
 	        transform: translateY(100%);
 }
 
+#note {
+	-webkit-transition: all 800ms ease-in-out 300ms;
+	-o-transition: all 800ms ease-in-out 300ms;
+	transition: all 800ms ease-in-out 300ms;
+	opacity: 0;
+	font-size: 12px;
+}
+
 a {
 	color: #00b7ff;
 }
