@@ -18,8 +18,8 @@ if (window.location.pathname === '/all') {
         // a row and push it to csvrow
         let links = cols[j]?.children[0]?.children[0]?.href
         if (links) {
-          csvrow.push(`"=HYPERLINK(""${links}"",""${cols[j].innerText}"")"`)
-          // csvrow.push("=HYPERLINK(""+links+"";""+cols[j].innerText+"")')
+          csvrow.push(`"=HYPERLINK(""${links}"",""${cols[j].innerText} (Click for Photo)"")"`)
+          // csvrow.push(`"=HYPERLINK(""${links}"",""${cols[j].innerText}"")"`)
         } else {
           csvrow.push(cols[j].innerText)
         }

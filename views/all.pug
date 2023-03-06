@@ -3,9 +3,11 @@ include mixins/gettelTable
 
 block content
   if formInfo.length > 0 
-    .row.g-3
+    .row.g-3.justify-content-between
       .col-12.col-md-4.btn-col
         button.btn.btn-success#export-btn Export CSV
+      .col-12.col-md-4.btn-col.d-flex.justify-content-start.justify-content-md-end
+        small.fw-bold#note *Note: You must be logged into Jotforms to view photo links
       .col-12 
         .table-responsive
           table.table 
