@@ -2,16 +2,16 @@ mixin gettelTable(data)
   thead 
     tr(scope="row")
       th.table-light Location
-      - for (let i = 1; i < data.length; i++) {
+      - for (let i = 0; i < data.length - 1; i++) {
         th.table-light.border-start= data[i].text
         th.table-light.fw-normal.border-end Description                  
       - }
   tbody 
     tr 
       td 
-        span.bluePill= data[0].location
+        span.bluePill= data[1].location
 
-      - for (let i = 1; i < data.length; i++) {
+      - for (let i = 0; i < data.length - 1; i++) {
         td
           span.redPill= data[i].answer
         if !data[i].descAnswer

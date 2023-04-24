@@ -49,7 +49,7 @@ router.get('/all', async (req, res, next) => {
 		lastDayOfPreviousMonth,
 		firstDayOfNextMonth
 	);
-	console.log(await submissions + ': line 52');
+	// console.log(await submissions + ': line 52');
 	let formInfo = await getAnswers(submissions);
 
 	res.render('all', {
@@ -106,11 +106,25 @@ async function jotGetSubs(prevMonth, nextMonth) {
 			// by comparing the form_id to the id of the form in the ogForms array
 			response.map((item) => {
 				let formID = item.form_id;
-				let firstItem = item.answers['46'] || item.answers['183'];
+				let answers = item.answers;
+				
+				for (let key in answers) {
+					if (answers[key].order === '2') {
+						// console.log('found it!!!!!!');
+						// console.log(answers[key]);
+						answers.location = answers[key].answer
+						answers.location = {
+							'location': answers[key].answer,
+							'formID': formID
+						}
+					}
+				}
+
+				// let firstItem = answers['46'] || answers['183'];
+				let firstItem = answers.location;
 				firstItem.formID = formID;
 				ogForms.forEach((form) => {
 					if (form.id === formID) {
-						console.log(JSON.stringify(firstItem));
 						firstItem.answer = form.title;
 					}
 				});
@@ -125,7 +139,7 @@ async function jotGetSubs(prevMonth, nextMonth) {
 
 async function getAnswers(data) {
 	// map() the answers property of each object in the array
-	console.log(data + ': line 127');
+	// console.log(data + ': line 127');
 	const gotAnswers = data.map((item) => {
 		return item.answers;
 	});
@@ -134,7 +148,10 @@ async function getAnswers(data) {
 	const answersToArray = gotAnswers.map((item, index) => {
 		let currentArray = Object.values(gotAnswers[index]);
 		let arrayItem = Object.values(item);
-		arrayItem[0].what = 'Heading';
+		// console.log(currentArray[currentArray.length - 1]);
+		// console.log(arrayItem);
+		// arrayItem[0].what = 'Heading';
+		arrayItem[arrayItem.length - 1].what = 'Heading';
 		let poorFilter = arrayItem.filter((item) => {
 			if (item.answer === 'Poor' || item.what === 'Heading') {
 				getAdditionalData(item, currentArray);
@@ -142,6 +159,7 @@ async function getAnswers(data) {
 				return item;
 			}
 		});
+		console.log(poorFilter);
 
 		return poorFilter;
 	});
