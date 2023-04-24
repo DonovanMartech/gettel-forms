@@ -49,6 +49,7 @@ router.get('/all', async (req, res, next) => {
 		lastDayOfPreviousMonth,
 		firstDayOfNextMonth
 	);
+	console.log(await submissions + ': line 52');
 	let formInfo = await getAnswers(submissions);
 
 	res.render('all', {
@@ -105,11 +106,12 @@ async function jotGetSubs(prevMonth, nextMonth) {
 			// by comparing the form_id to the id of the form in the ogForms array
 			response.map((item) => {
 				let formID = item.form_id;
-				let firstItem = item.answers['1'];
+				let firstItem = item.answers['46'] || item.answers['183'];
 				firstItem.formID = formID;
 				ogForms.forEach((form) => {
 					if (form.id === formID) {
-						firstItem.location = form.title;
+						console.log(JSON.stringify(firstItem));
+						firstItem.answer = form.title;
 					}
 				});
 			});
@@ -123,6 +125,7 @@ async function jotGetSubs(prevMonth, nextMonth) {
 
 async function getAnswers(data) {
 	// map() the answers property of each object in the array
+	console.log(data + ': line 127');
 	const gotAnswers = data.map((item) => {
 		return item.answers;
 	});
