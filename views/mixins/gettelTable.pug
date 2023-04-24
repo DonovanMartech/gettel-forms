@@ -9,7 +9,7 @@ mixin gettelTable(data)
   tbody 
     tr 
       td 
-        span.bluePill= data[1].location
+        span.bluePill= data[data.length - 1].location
 
       - for (let i = 0; i < data.length - 1; i++) {
         td
