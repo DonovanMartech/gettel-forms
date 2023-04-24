@@ -159,7 +159,7 @@ async function getAnswers(data) {
 				return item;
 			}
 		});
-		console.log(poorFilter);
+		// console.log(poorFilter);
 
 		return poorFilter;
 	});
