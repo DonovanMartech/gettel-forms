@@ -3,6 +3,9 @@ include mixins/gettelTable
 
 block content
   if formInfo.length > 0 
+    .row.justify-content-center.mb-5 
+      .col-12.col-md-4.text-center
+        h3 #{selectedDate.month} #{selectedDate.year}
     .row.g-3.justify-content-between
       .col-12.col-md-4.btn-col
         button.btn.btn-success#export-btn Export CSV

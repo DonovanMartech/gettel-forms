@@ -10,6 +10,7 @@ mixin gettelTable(data)
     tr 
       td 
         span.bluePill= data[data.length - 1].location
+        a.subUrl(href=data[data.length - 1].subUrl)= data[data.length - 1].subUrl 
 
       - for (let i = 0; i < data.length - 1; i++) {
         td

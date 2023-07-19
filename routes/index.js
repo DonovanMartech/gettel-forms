@@ -41,7 +41,6 @@ router.get("/", async function (req, res, next) {
 // Displaying all submissions from selected month and year
 router.get("/all", async (req, res, next) => {
   ogForms = await getAllForms()
-  //   console.log(ogForms)
   let year = req.query.year
   let month = req.query.month
   let lastDayOfPreviousMonth = new Date(year, month - 1, -1)
@@ -51,6 +50,10 @@ router.get("/all", async (req, res, next) => {
     lastDayOfPreviousMonth,
     firstDayOfNextMonth
   )
+
+   submissions.map(sub => {
+    sub.answers.location.subUrl = `https://www.jotform.com/submission/${sub.id}`
+    })
 
   let formInfo = await getAnswers(submissions)
   //   console.log(formInfo)
@@ -107,7 +110,6 @@ async function jotGetSubs(prevMonth, nextMonth) {
       // Goes through each submission and adds the form title to the first item
       // by comparing the form_id to the id of the form in the ogForms array
       response.map((item) => {
-        console.log(item)
         let formID = item.form_id
         let answers = item.answers
 
